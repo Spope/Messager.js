@@ -72,6 +72,19 @@ p {
     margin-top: 20px;
 }
 
+button {
+    padding: 10px 15px;
+    background: #002661;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0e3878;
+}
+
 iframe {
     width: 1200px;
     height: 300px;
