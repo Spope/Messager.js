@@ -2,7 +2,7 @@
 
 # Messager
 
-Messager is a **lightweight** (1kb Gzipped) dependancy free wrapper for postMessage API. Messager allow you to send event to and from an iframe, cross domain or not
+Messager is a **lightweight** (1kb Gzipped) dependancy free wrapper for postMessage API. Messager allow you to send event to and from an iframe, cross domain or not.
 
 ## Installation
 
