@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3">
+        <title>Messager.js</title>
+        <meta name="description" content="Minimalist dependancy free Masonry layout library">
+        <meta name="google" content="notranslate">
+        <link href="./example.css" media="screen" rel="stylesheet" type="text/css"/>
+        <link href="./higlight/default.css" media="screen" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+
+        <section class="header">
+            <div class="header_content">
+                <img src="./logo.png" width="100" height="100" />
+                <h1>Messager.js</h1>
+                <p class="legend">Cross domain iframe communication</p>
+                <p><a class="github-button" href="https://github.com/Spope/Messager.js/" data-size="large" aria-label="Download Spope/Messager.js on GitHub">Download</a></p>
+            </div>
+        </section>
+        <section class="description">
+            <div class="description_content">
+                <p class="section_content">Messager is a <strong>lightweight</strong> (1kb Gzipped) dependancy free wrapper for postMessage API. Messager allow you to send event to and from an iframe, cross domain or not</p>
+
+                <h2 class="section_content">Installation</h2>
+                <p class="section_content">Just include the minified version of Messager.js on your website :</p>
+                <div class="pre_wrapper">
+                    <pre><code class="html">&lt;script src=&quot;messager/build/messager.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+                </div>
+
+                <h2 class="section_content">Usage</h2>
+                <p class="section_content">Messager should be instanciated on both iframe and parent page.</p>
+                <p class="section_content">On the host website : </p>
+                <div class="pre_wrapper">
+                    <pre><code class="javascript">var iframe = document.getElementById('myFrame');
+var messager = new Messager({
+    remoteWindow: iframe.contentWindow,
+    local: "http://hostaddress.com/",
+    remote: "http://iframeaddress.com/"
+}); </code></pre>
+                </div>
+
+                <p class="section_content">On the iframe's website : </p>
+                <div class="pre_wrapper">
+                    <pre><code class="javascript">var messager = new Messager({
+    remoteWindow: window.parent,
+    local: "http://iframeaddress.com/",
+    remote: "http://hostaddress.com/"
+}); </code></pre>
+                </div>
+
+                <p class="section_content">Then, from the iframe or the host website, you can send event like this : </p>
+                <div class="pre_wrapper">
+                    <pre><code class="javascript">messager.send('eventName', {param: 'value'});</code></pre>
+                </div>
+
+                <p class="section_content">And listening to this event like that : </p>
+                <div class="pre_wrapper">
+                    <pre><code class="javascript">messager.on('eventName', callback);</code></pre>
+                </div>
+                <p class="section_content">The callback function will receveive the given parameters as argument.</p>
+
+                <h2 class="section_content">Parameters</h2>
+
+                <p class="section_content">Here is the list of available parameters : </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Default value</td>
+                            <td>Description</td>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>local</td>
+                        <td>null</td>
+                        <td>Hostname of the current website (iframe hostname or parent hostname). <strong>Required</strong></td>
+                    </tr>
+                    <tr>
+                        <td>remote</td>
+                        <td>null</td>
+                        <td>Hostname of the remote website (iframe hostname or parent hostname). <strong>Required</strong></td>
+                    </tr>
+                    <tr>
+                        <td>remoteWindow</td>
+                        <td>null</td>
+                        <td>Window object of the remote website. <strong>Required</strong></td>
+                    </tr>
+                    <tr>
+                        <td>window</td>
+                        <td>window</td>
+                        <td>Window object of the local website.</td>
+                    </tr>
+                </table>
+
+                <h2 class="section_content">API</h2>
+
+                <p class="section_content">Here is the list of available APIs : </p>
+                <table>
+                    <thead>
+                        <td>Name</td>
+                        <td>Description</td>
+                    </thead>
+                    <tr>
+                        <td>send('eventName', parameters)</td>
+                        <td>Function to send event and parameters to the iframe / host.</td>
+                    </tr>
+                    <tr>
+                        <td>on('eventName', callback)</td>
+                        <td>Callback to execute on the iframe or host to execute when receiving an event.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="example">
+            <h2 class="section_content">Example</h2>
+            <p class="section_content">On the host website, initialization of Messager : </p>
+            <div class="pre_wrapper">
+                <pre><code class="javascript">var iframe = document.querySelector('iframe');
+var messager = new Messager({
+    local: 'https://projects.spope.fr',
+    remote: 'https://anothersite.fr',
+    remoteWindow: iframe.contentWindow
+});
+
+var button = document.querySelector('.demo_send');
+button.addEventListener('click', function() {
+    messager.send('toggle', {params: 'test'});
+})</code></pre>
+            </div>
+            <p class="section_content">In the iframe, initialization of Messager : </p>
+            <div class="pre_wrapper">
+                <pre><code class="javascript">var messager = new Messager({
+    local: 'https://anothersite.fr',
+    remote: 'https://projects.spope.fr',
+    remoteWindow: window.parent
+});
+
+var callback = function(params) {
+    document.querySelector('body').classList.toggle('active');
+}
+
+messager.bind('toggle', callback);</code></pre>
+            </div>
+            <p class="section_content"><button class="demo_send">Send message</button></p>
+            <iframe class="container example_default section_content" src="iframe.html"></iframe>
+        </section>
+
+        <section class="footer">
+            <p class="section_content">Made by <a href="https://spope.fr" title="spope.fr">Spope</a> - See on <a href="https://github.com/Spope/Messager.js" title="Open Github repository">Github</a> - Feel free to contact me on <a href="https://twitter.com/spopila" title="Spopila's Twitter account">Twitter</a></p>
+        </section>
+
+        <script src="../src/messager.js"></script>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script src="./higlight/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <script type="text/javascript">
+            var iframe = document.querySelector('iframe');
+            var messager = new Messager({
+                local: 'https://projects.spope.fr',
+                remote: 'https://projects.spope.fr',
+                remoteWindow: iframe.contentWindow
+            });
+
+            var button = document.querySelector('.demo_send');
+            button.addEventListener('click', function() {
+                messager.send('toggle', {params: 'test'});
+            });
+        </script>
+    </body>
+</html>

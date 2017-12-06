@@ -8,11 +8,15 @@ var Messager = function(params){
         _remote: null,
 
         init: function(params) {
-            if(typeof params.localWindow === "undefined" || typeof params.remoteWindow === "undefined" || typeof params.local === "undefined" || typeof params.remote === "undefined") {
+            if(typeof params.remoteWindow === "undefined" || typeof params.local === "undefined" || typeof params.remote === "undefined") {
                 throw 'Missing Parameters';
             }
 
-            this._window = params.localWindow;
+            this._window = window;
+            if (params.localWindow) {
+                this._window = params.localWindow;
+            }
+
             this._remoteWindow = params.remoteWindow;
             this._local = params.local;
             this._remote = params.remote;
@@ -35,7 +39,11 @@ var Messager = function(params){
                 //Bad message origin
                 return;
             }
-            var message = JSON.parse(e.data);
+
+            var message = {data: null};
+            if (e.data) {
+                message = JSON.parse(e.data);
+            }
 
             if(typeof this._bindList[message.type] == 'function') {
                 this._bindList[message.type].apply(this._window, [message.data]);
