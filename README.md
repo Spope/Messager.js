@@ -46,7 +46,7 @@ messager.send('eventName', {param: 'value'});
 And listening to this event like that :
 
 ```javascript
-Then, from the iframe or the host website, you can send event like this :
+messager.on('eventName', callback);
 ```
 
 The callback function will receveive the given parameters as argument.
