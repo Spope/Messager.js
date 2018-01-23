@@ -1,4 +1,4 @@
-<p align="center"><a href="https://projects.spope.fr/messager/example/index.html" target="_blank"><img width="100" height="100" src="https://raw.githubusercontent.com/Spope/Messager.js/master/example/icon.png"></a></p>
+<p align="center"><a href="https://spope.github.io/Messager.js/" target="_blank"><img width="100" height="100" src="https://spope.github.io/Messager.js/icon.png"></a></p>
 
 # Messager
 
@@ -73,7 +73,7 @@ on('eventName', callback)|Callback to execute on the iframe or host to execute w
 
 ## Example
 
-[See website](https://projects.spope.fr/messager/example/index.html)
+[See website](https://spope.github.io/Messager.js/)
 
 ## License
 
